@@ -1864,14 +1864,7 @@
       <div class="service-picker">
         <span class="service-picker-label">Leistung wählen</span>
         <div class="service-options" id="serviceOptions" role="radiogroup" aria-label="Leistung wählen">
-          <button type="button" class="service-option is-selected" role="radio" aria-checked="true" data-service="Kennenlerngespräch" data-icon="✿" data-hint="kostenlos · ca. 45 Min.">
-            <span class="so-icon">✿</span>
-            <span class="so-text">
-              <span class="so-name">Kennenlerngespräch</span>
-              <span class="so-hint">kostenlos · ca. 45 Min.</span>
-            </span>
-          </button>
-          <button type="button" class="service-option" role="radio" aria-checked="false" data-service="Life Coaching" data-icon="✦" data-hint="persönliche Klarheit · 60 Min.">
+          <button type="button" class="service-option is-selected" role="radio" aria-checked="true" data-service="Life Coaching" data-icon="✦" data-hint="persönliche Klarheit · 60 Min.">
             <span class="so-icon">✦</span>
             <span class="so-text">
               <span class="so-name">Life Coaching</span>
@@ -2031,7 +2024,7 @@
     viewDate.setDate(1);
     let selectedDate = null;
     let selectedSlot = null;
-    let selectedService = 'Kennenlerngespräch';
+    let selectedService = 'Life Coaching';
 
     const serviceOptions = document.getElementById('serviceOptions');
     const slotHeader = document.getElementById('slotHeader');
@@ -2169,7 +2162,7 @@
       selectedDate = null;
       selectedSlot = null;
       viewDate = new Date(); viewDate.setDate(1);
-      setService(preset || 'Kennenlerngespräch');
+      setService(preset || 'Life Coaching');
       renderCalendar();
       renderSlots();
       overlay.classList.add('open');
@@ -2228,8 +2221,8 @@
       a.addEventListener('click', (e) => {
         e.preventDefault();
         // Wenn ein Service-Card-Button explizit data-service trägt, diesen nutzen,
-        // sonst Standard: Kennenlerngespräch.
-        const preset = a.dataset.service || 'Kennenlerngespräch';
+        // sonst Standard: Life Coaching.
+        const preset = a.dataset.service || 'Life Coaching';
         openBooking(preset);
       });
     });
