@@ -227,12 +227,7 @@
     z-index: 0;
   }
 
-  /* ---------- HERO: CINEMATIC VIDEO BG ---------- */
-  .hero--cinematic {
-    background: #000;
-    min-height: 100vh;
-    padding: 200px 0 140px;
-  }
+  /* ---------- HERO: CINEMATIC VIDEO BG (markenkonform) ---------- */
   .hero--cinematic .hero-video {
     position: absolute;
     inset: 0;
@@ -243,7 +238,9 @@
     z-index: 0;
     pointer-events: none;
     opacity: 0;
-    animation: heroVideoFadeIn 1.2s ease-out 0.1s forwards;
+    animation: heroVideoFadeIn 1.4s ease-out 0.1s forwards;
+    /* Wärmerer Cast, damit das Video zur Coaching-Brand passt */
+    filter: saturate(0.78) brightness(0.97) sepia(0.18);
   }
   @keyframes heroVideoFadeIn { to { opacity: 1; } }
   .hero--cinematic .hero-overlay {
@@ -251,73 +248,53 @@
     inset: 0;
     z-index: 1;
     pointer-events: none;
+    /* Cremiger Schleier — Video schimmert dezent durch */
     background:
-      radial-gradient(ellipse at 30% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 50%, transparent 80%),
-      linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.25) 70%, var(--cream) 100%);
+      radial-gradient(ellipse at 70% 30%, rgba(230,213,184,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 80%, rgba(138,154,123,0.18) 0%, transparent 55%),
+      linear-gradient(180deg,
+        rgba(250,245,238,0.55) 0%,
+        rgba(250,245,238,0.62) 30%,
+        rgba(250,245,238,0.78) 70%,
+        var(--cream) 100%);
   }
-  /* Blobs im Cinematic-Hero ausblenden – würden mit Video kollidieren */
-  .hero--cinematic .hero-blob,
-  .hero--cinematic .hero-blob-2 {
-    display: none;
-  }
-  /* Hero-Grid: rechte Spalte ausblenden, Text linksbündig groß */
-  .hero--cinematic .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
+  /* Hero-Grid und Inhalte sitzen über Video + Overlay */
+  .hero--cinematic .hero-grid,
+  .hero--cinematic .hero-text,
   .hero--cinematic .hero-visual {
-    display: none;
-  }
-  /* Helle Hero-Texte über dem Video */
-  .hero--cinematic .hero-text {
-    max-width: 720px;
     position: relative;
     z-index: 2;
   }
-  .hero--cinematic .hero-eyebrow {
-    color: #fff;
-    opacity: 0.95;
-  }
-  .hero--cinematic .hero-eyebrow::before {
-    background: rgba(255,255,255,0.85);
-  }
+  /* Sanfter Text-Schatten für Lesbarkeit, ohne die Farben zu verändern */
   .hero--cinematic h1 {
-    color: #fff;
-    text-shadow: 0 2px 24px rgba(0,0,0,0.35);
-  }
-  .hero--cinematic h1 em {
-    color: var(--sand);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 2px 14px rgba(255,255,255,0.25);
   }
   .hero--cinematic .hero-lead {
-    color: rgba(255,255,255,0.92);
-    text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.55);
   }
-  /* Primary-Button bleibt sichtbar, Secondary auf Glas-Optik umschalten */
-  .hero--cinematic .btn-primary {
-    background: var(--cream);
-    color: var(--warm-brown);
+  /* Portrait-Backdrop: dichter Cream-Kreis, damit mix-blend-multiply
+     gegen den lokalen Cream-Untergrund sauber arbeitet */
+  .hero--cinematic .hero-visual::before {
+    opacity: 1;
+    background: radial-gradient(circle at 50% 50%,
+      var(--cream) 0%,
+      var(--cream-deep) 35%,
+      var(--sand) 55%,
+      rgba(230,213,184,0.55) 70%,
+      transparent 85%);
   }
-  .hero--cinematic .btn-primary:hover {
-    background: var(--terracotta);
-    color: #fff;
-  }
-  .hero--cinematic .btn-secondary {
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.55);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .hero--cinematic .btn-secondary:hover {
-    background: rgba(255,255,255,0.18);
-    color: #fff;
+  /* Badges bekommen einen leichten Glas-Touch, damit sie auf dem
+     Video-Schimmer ruhiger sitzen */
+  .hero--cinematic .hero-badge,
+  .hero--cinematic .hero-badge-2 {
+    background: rgba(250, 245, 238, 0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
   @media (max-width: 850px) {
-    .hero--cinematic {
-      padding: 130px 0 80px;
-      min-height: 90vh;
+    .hero--cinematic .hero-visual::before {
+      width: 100%;
     }
-    .hero--cinematic .hero-text { max-width: 100%; }
   }
 
   .hero-grid {
