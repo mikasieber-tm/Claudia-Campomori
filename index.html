@@ -227,6 +227,99 @@
     z-index: 0;
   }
 
+  /* ---------- HERO: CINEMATIC VIDEO BG ---------- */
+  .hero--cinematic {
+    background: #000;
+    min-height: 100vh;
+    padding: 200px 0 140px;
+  }
+  .hero--cinematic .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    animation: heroVideoFadeIn 1.2s ease-out 0.1s forwards;
+  }
+  @keyframes heroVideoFadeIn { to { opacity: 1; } }
+  .hero--cinematic .hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 50%, transparent 80%),
+      linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.25) 70%, var(--cream) 100%);
+  }
+  /* Blobs im Cinematic-Hero ausblenden – würden mit Video kollidieren */
+  .hero--cinematic .hero-blob,
+  .hero--cinematic .hero-blob-2 {
+    display: none;
+  }
+  /* Hero-Grid: rechte Spalte ausblenden, Text linksbündig groß */
+  .hero--cinematic .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .hero--cinematic .hero-visual {
+    display: none;
+  }
+  /* Helle Hero-Texte über dem Video */
+  .hero--cinematic .hero-text {
+    max-width: 720px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero--cinematic .hero-eyebrow {
+    color: #fff;
+    opacity: 0.95;
+  }
+  .hero--cinematic .hero-eyebrow::before {
+    background: rgba(255,255,255,0.85);
+  }
+  .hero--cinematic h1 {
+    color: #fff;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+  }
+  .hero--cinematic h1 em {
+    color: var(--sand);
+  }
+  .hero--cinematic .hero-lead {
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+  }
+  /* Primary-Button bleibt sichtbar, Secondary auf Glas-Optik umschalten */
+  .hero--cinematic .btn-primary {
+    background: var(--cream);
+    color: var(--warm-brown);
+  }
+  .hero--cinematic .btn-primary:hover {
+    background: var(--terracotta);
+    color: #fff;
+  }
+  .hero--cinematic .btn-secondary {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .hero--cinematic .btn-secondary:hover {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+  }
+  @media (max-width: 850px) {
+    .hero--cinematic {
+      padding: 130px 0 80px;
+      min-height: 90vh;
+    }
+    .hero--cinematic .hero-text { max-width: 100%; }
+  }
+
   .hero-grid {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
@@ -1539,7 +1632,12 @@
 </nav>
 
 <!-- HERO / START -->
-<section id="start" class="hero">
+<section id="start" class="hero hero--cinematic">
+  <video class="hero-video"
+         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
+         autoplay muted loop playsinline preload="auto"
+         aria-hidden="true"></video>
+  <div class="hero-overlay" aria-hidden="true"></div>
   <div class="hero-blob"></div>
   <div class="hero-blob-2"></div>
   <div class="container">
