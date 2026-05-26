@@ -227,75 +227,6 @@
     z-index: 0;
   }
 
-  /* ---------- HERO: CINEMATIC VIDEO BG (markenkonform) ---------- */
-  .hero--cinematic .hero-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0;
-    animation: heroVideoFadeIn 1.4s ease-out 0.1s forwards;
-    /* Wärmerer Cast, damit das Video zur Coaching-Brand passt */
-    filter: saturate(0.78) brightness(0.97) sepia(0.18);
-  }
-  @keyframes heroVideoFadeIn { to { opacity: 1; } }
-  .hero--cinematic .hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    /* Cremiger Schleier — Video schimmert dezent durch */
-    background:
-      radial-gradient(ellipse at 70% 30%, rgba(230,213,184,0.35) 0%, transparent 60%),
-      radial-gradient(ellipse at 10% 80%, rgba(138,154,123,0.18) 0%, transparent 55%),
-      linear-gradient(180deg,
-        rgba(250,245,238,0.55) 0%,
-        rgba(250,245,238,0.62) 30%,
-        rgba(250,245,238,0.78) 70%,
-        var(--cream) 100%);
-  }
-  /* Hero-Grid und Inhalte sitzen über Video + Overlay */
-  .hero--cinematic .hero-grid,
-  .hero--cinematic .hero-text,
-  .hero--cinematic .hero-visual {
-    position: relative;
-    z-index: 2;
-  }
-  /* Sanfter Text-Schatten für Lesbarkeit, ohne die Farben zu verändern */
-  .hero--cinematic h1 {
-    text-shadow: 0 1px 0 rgba(255,255,255,0.4), 0 2px 14px rgba(255,255,255,0.25);
-  }
-  .hero--cinematic .hero-lead {
-    text-shadow: 0 1px 0 rgba(255,255,255,0.55);
-  }
-  /* Portrait-Backdrop: dichter Cream-Kreis, damit mix-blend-multiply
-     gegen den lokalen Cream-Untergrund sauber arbeitet */
-  .hero--cinematic .hero-visual::before {
-    opacity: 1;
-    background: radial-gradient(circle at 50% 50%,
-      var(--cream) 0%,
-      var(--cream-deep) 35%,
-      var(--sand) 55%,
-      rgba(230,213,184,0.55) 70%,
-      transparent 85%);
-  }
-  /* Badges bekommen einen leichten Glas-Touch, damit sie auf dem
-     Video-Schimmer ruhiger sitzen */
-  .hero--cinematic .hero-badge,
-  .hero--cinematic .hero-badge-2 {
-    background: rgba(250, 245, 238, 0.92);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-  @media (max-width: 850px) {
-    .hero--cinematic .hero-visual::before {
-      width: 100%;
-    }
-  }
 
   .hero-grid {
     display: grid;
@@ -1609,12 +1540,7 @@
 </nav>
 
 <!-- HERO / START -->
-<section id="start" class="hero hero--cinematic">
-  <video class="hero-video"
-         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
-         autoplay muted loop playsinline preload="auto"
-         aria-hidden="true"></video>
-  <div class="hero-overlay" aria-hidden="true"></div>
+<section id="start" class="hero">
   <div class="hero-blob"></div>
   <div class="hero-blob-2"></div>
   <div class="container">
