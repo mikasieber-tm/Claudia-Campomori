@@ -1059,11 +1059,11 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     width: 100%;
-    max-width: 880px;
+    max-width: 940px;
     max-height: 92vh;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1.15fr 1fr;
     position: relative;
     transform: scale(0.96);
     transition: transform 0.3s ease;
@@ -1093,12 +1093,12 @@
     background: var(--sand);
   }
   .booking-left {
-    padding: 40px 36px;
+    padding: 32px 28px;
     overflow-y: auto;
     border-right: 1px solid var(--cream-deep);
   }
   .booking-right {
-    padding: 40px 36px;
+    padding: 32px 28px;
     background: #fff;
     overflow-y: auto;
   }
@@ -1141,6 +1141,12 @@
     font-size: 1rem;
     flex-shrink: 0;
   }
+  .cal-wrap {
+    background: #fff;
+    border-radius: 18px;
+    padding: 18px 16px 14px;
+    box-shadow: 0 2px 12px rgba(74, 55, 41, 0.04);
+  }
   .cal-header {
     display: flex;
     align-items: center;
@@ -1148,88 +1154,104 @@
     margin-bottom: 14px;
   }
   .cal-title {
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
     color: var(--warm-brown);
-    font-size: 1.05rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.01em;
   }
   .cal-nav {
     display: flex;
     gap: 6px;
   }
   .cal-nav button {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border: none;
     border-radius: 50%;
-    background: var(--cream-deep);
+    background: var(--cream);
     color: var(--warm-brown);
     cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.2s ease;
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: background 0.2s ease, color 0.2s ease;
   }
   .cal-nav button:hover:not(:disabled) {
-    background: var(--sand);
+    background: var(--terracotta);
+    color: #fff;
   }
   .cal-nav button:disabled {
-    opacity: 0.35;
+    opacity: 0.3;
     cursor: not-allowed;
   }
   .cal-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    margin-bottom: 8px;
+    gap: 2px;
+    margin-bottom: 6px;
+    padding: 0 2px;
   }
   .cal-weekdays span {
     text-align: center;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--muted);
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 6px 0;
+    padding: 6px 0 8px;
   }
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
+    gap: 2px;
   }
   .cal-day {
     aspect-ratio: 1 / 1;
+    min-height: 38px;
     border: none;
     background: transparent;
-    border-radius: 12px;
-    font-size: 0.92rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
     color: var(--ink);
     cursor: pointer;
     transition: all 0.18s ease;
     position: relative;
     font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .cal-day:hover:not(:disabled) {
-    background: var(--cream-deep);
+  .cal-day:hover:not(:disabled):not(.is-empty) {
+    background: var(--cream);
+    color: var(--terracotta);
   }
   .cal-day.is-empty {
     visibility: hidden;
   }
   .cal-day.is-disabled {
-    color: var(--sand);
+    color: #c9bfaf;
     cursor: not-allowed;
-    text-decoration: line-through;
-    text-decoration-color: var(--sand);
+    font-weight: 400;
+  }
+  .cal-day.is-disabled:hover {
+    background: transparent;
+    color: #c9bfaf;
   }
   .cal-day.is-today {
-    font-weight: 700;
+    box-shadow: inset 0 0 0 1.5px var(--terracotta);
     color: var(--terracotta);
+    font-weight: 700;
   }
   .cal-day.is-selected {
     background: var(--terracotta) !important;
     color: #fff !important;
+    box-shadow: 0 4px 12px rgba(201, 123, 94, 0.35);
   }
   .cal-day.has-slots::after {
     content: '';
     position: absolute;
-    bottom: 6px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
     width: 4px;
@@ -1239,6 +1261,34 @@
   }
   .cal-day.is-selected.has-slots::after {
     background: #fff;
+  }
+  .cal-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--cream-deep);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .cal-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .cal-legend .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage-deep);
+  }
+  .cal-legend .ring {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px var(--terracotta);
   }
   .booking-right h4 {
     font-family: 'Cormorant Garamond', serif;
@@ -1374,6 +1424,83 @@
     margin: 0;
     line-height: 1.6;
   }
+  /* Service-Auswahl im Buchungs-Modal - kompakt als Chips */
+  .service-picker {
+    margin: 0 0 18px;
+  }
+  .service-picker-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .service-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .service-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px 6px 8px;
+    border: 1.5px solid var(--cream-deep);
+    background: #fff;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+    font-family: inherit;
+    color: var(--warm-brown);
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+  .service-option:hover {
+    border-color: var(--sand);
+    background: var(--cream);
+  }
+  .service-option.is-selected {
+    border-color: var(--terracotta);
+    background: var(--terracotta);
+    color: #fff;
+  }
+  .service-option .so-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--cream-deep);
+    color: var(--terracotta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+  .service-option.is-selected .so-icon {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+  }
+  .service-option .so-text {
+    display: inline;
+  }
+  .service-option .so-name {
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  /* Hint nur noch im Slot-Header sichtbar, in Chips ausblenden */
+  .service-option .so-hint {
+    display: none;
+  }
+  /* Hint unter dem Slot-Header anzeigen */
+  .booking-right .slot-hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin: -2px 0 14px;
+    font-style: italic;
+  }
   @media (max-width: 760px) {
     .booking-modal {
       grid-template-columns: 1fr;
@@ -1405,7 +1532,7 @@
       <li><a href="#angebot">Angebot</a></li>
       <li><a href="#profil">Profil</a></li>
       <li><a href="#aktuell">Aktuell</a></li>
-      <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+      <li><a href="#kontakt" class="nav-cta">Termin vereinbaren</a></li>
     </ul>
     <button class="menu-toggle" aria-label="Menü">☰</button>
   </div>
@@ -1732,19 +1859,66 @@
 
     <div class="booking-left">
       <h3 id="bookingTitle">Termin vereinbaren</h3>
-      <p class="booking-sub">Wählen Sie einen passenden Tag und ein freies Zeitfenster. Ein erstes Kennenlernen ist unverbindlich und kostenlos.</p>
+      <p class="booking-sub">Wählen Sie zuerst die Leistung, dann einen passenden Tag und ein freies Zeitfenster. Ein erstes Kennenlernen ist unverbindlich und kostenlos.</p>
 
-      <div class="cal-header">
-        <span class="cal-title" id="calTitle">Monat</span>
-        <div class="cal-nav">
-          <button type="button" id="calPrev" aria-label="Vorheriger Monat">‹</button>
-          <button type="button" id="calNext" aria-label="Nächster Monat">›</button>
+      <div class="service-picker">
+        <span class="service-picker-label">Leistung wählen</span>
+        <div class="service-options" id="serviceOptions" role="radiogroup" aria-label="Leistung wählen">
+          <button type="button" class="service-option is-selected" role="radio" aria-checked="true" data-service="Life Coaching" data-icon="✦" data-hint="persönliche Klarheit · 60 Min.">
+            <span class="so-icon">✦</span>
+            <span class="so-text">
+              <span class="so-name">Life Coaching</span>
+              <span class="so-hint">persönliche Klarheit · 60 Min.</span>
+            </span>
+          </button>
+          <button type="button" class="service-option" role="radio" aria-checked="false" data-service="Führungscoaching" data-icon="★" data-hint="für Führungspersönlichkeiten · 60 Min.">
+            <span class="so-icon">★</span>
+            <span class="so-text">
+              <span class="so-name">Führungscoaching</span>
+              <span class="so-hint">für Führungspersönlichkeiten · 60 Min.</span>
+            </span>
+          </button>
+          <button type="button" class="service-option" role="radio" aria-checked="false" data-service="Psychische Gesundheit & Resilienz" data-icon="♡" data-hint="Resilienz aufbauen · 60 Min.">
+            <span class="so-icon">♡</span>
+            <span class="so-text">
+              <span class="so-name">Psychische Gesundheit & Resilienz</span>
+              <span class="so-hint">Resilienz aufbauen · 60 Min.</span>
+            </span>
+          </button>
+          <button type="button" class="service-option" role="radio" aria-checked="false" data-service="HR ad Interim" data-icon="⏱" data-hint="für Unternehmen · Erstgespräch 60 Min.">
+            <span class="so-icon">⏱</span>
+            <span class="so-text">
+              <span class="so-name">HR ad Interim</span>
+              <span class="so-hint">für Unternehmen · Erstgespräch 60 Min.</span>
+            </span>
+          </button>
+          <button type="button" class="service-option" role="radio" aria-checked="false" data-service="HR Dienstleistungen & Beratung" data-icon="⚙" data-hint="für KMU · Erstgespräch 60 Min.">
+            <span class="so-icon">⚙</span>
+            <span class="so-text">
+              <span class="so-name">HR Dienstleistungen & Beratung</span>
+              <span class="so-hint">für KMU · Erstgespräch 60 Min.</span>
+            </span>
+          </button>
         </div>
       </div>
-      <div class="cal-weekdays">
-        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+
+      <div class="cal-wrap">
+        <div class="cal-header">
+          <span class="cal-title" id="calTitle">Monat</span>
+          <div class="cal-nav">
+            <button type="button" id="calPrev" aria-label="Vorheriger Monat">‹</button>
+            <button type="button" id="calNext" aria-label="Nächster Monat">›</button>
+          </div>
+        </div>
+        <div class="cal-weekdays">
+          <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="cal-legend">
+          <span><span class="dot"></span>Verfügbar</span>
+          <span><span class="ring"></span>Heute</span>
+        </div>
       </div>
-      <div class="cal-grid" id="calGrid"></div>
 
       <div class="booking-meta">
         <div class="booking-meta-item"><span class="ic">⏱</span><span>Dauer: ca. 60 Minuten</span></div>
@@ -1850,6 +2024,25 @@
     viewDate.setDate(1);
     let selectedDate = null;
     let selectedSlot = null;
+    let selectedService = 'Life Coaching';
+
+    const serviceOptions = document.getElementById('serviceOptions');
+    const slotHeader = document.getElementById('slotHeader');
+
+    function setService(name) {
+      selectedService = name;
+      serviceOptions.querySelectorAll('.service-option').forEach(btn => {
+        const active = btn.dataset.service === name;
+        btn.classList.toggle('is-selected', active);
+        btn.setAttribute('aria-checked', active ? 'true' : 'false');
+      });
+      slotHeader.textContent = name;
+    }
+    serviceOptions.addEventListener('click', (e) => {
+      const btn = e.target.closest('.service-option');
+      if (!btn) return;
+      setService(btn.dataset.service);
+    });
 
     function pad(n){ return String(n).padStart(2,'0'); }
     function fmtTime(min){ return pad(Math.floor(min/60)) + ':' + pad(min%60); }
@@ -1960,7 +2153,7 @@
       renderCalendar();
     });
 
-    function openBooking() {
+    function openBooking(preset) {
       // Reset
       bookingPicker.style.display = '';
       bookingSuccess.classList.remove('visible');
@@ -1969,6 +2162,7 @@
       selectedDate = null;
       selectedSlot = null;
       viewDate = new Date(); viewDate.setDate(1);
+      setService(preset || 'Life Coaching');
       renderCalendar();
       renderSlots();
       overlay.classList.add('open');
@@ -1996,12 +2190,13 @@
       const dateStr = wd + ', ' + pad(selectedDate.getDate()) + '.' + pad(selectedDate.getMonth()+1) + '.' + selectedDate.getFullYear();
       const timeStr = fmtTime(selectedSlot) + ' – ' + fmtTime(selectedSlot + SLOT_MINUTES);
 
-      const subject = 'Terminanfrage: ' + dateStr + ' ' + timeStr;
+      const subject = 'Terminanfrage: ' + selectedService + ' – ' + dateStr + ' ' + timeStr;
       const body =
         'Guten Tag Frau Campomori,\n\n' +
         'ich möchte gerne folgenden Termin anfragen:\n\n' +
-        'Datum: ' + dateStr + '\n' +
-        'Zeit:  ' + timeStr + '\n\n' +
+        'Leistung: ' + selectedService + '\n' +
+        'Datum:    ' + dateStr + '\n' +
+        'Zeit:     ' + timeStr + '\n\n' +
         'Name:    ' + name + '\n' +
         'E-Mail:  ' + email + '\n' +
         (phone ? 'Telefon: ' + phone + '\n' : '') +
@@ -2016,17 +2211,32 @@
       window.location.href = mailto;
 
       // Erfolgsansicht zeigen
-      successText.innerHTML = 'Ihre Terminanfrage für <strong>' + dateStr + '</strong> um <strong>' + timeStr + '</strong> wird vorbereitet. Bitte senden Sie die E-Mail in Ihrem Mail-Programm ab — ich melde mich persönlich zur Bestätigung.';
+      successText.innerHTML = 'Ihre Anfrage für <strong>' + selectedService + '</strong> am <strong>' + dateStr + '</strong> um <strong>' + timeStr + '</strong> wird vorbereitet. Bitte senden Sie die E-Mail in Ihrem Mail-Programm ab — ich melde mich persönlich zur Bestätigung.';
       bookingPicker.style.display = 'none';
       bookingSuccess.classList.add('visible');
     });
 
     // Buttons mit href="#kontakt" zum Termin vereinbaren auf das Modal umleiten
-    document.querySelectorAll('a[href="#kontakt"].btn-primary').forEach(a => {
+    document.querySelectorAll('a[href="#kontakt"].btn-primary, a[href="#kontakt"].nav-cta').forEach(a => {
       a.addEventListener('click', (e) => {
         e.preventDefault();
-        openBooking();
+        // Wenn ein Service-Card-Button explizit data-service trägt, diesen nutzen,
+        // sonst Standard: Life Coaching.
+        const preset = a.dataset.service || 'Life Coaching';
+        openBooking(preset);
       });
+    });
+
+    // Service-Cards in der Angebot-Sektion klickbar machen
+    document.querySelectorAll('#angebot .service-card').forEach(card => {
+      const titleEl = card.querySelector('h3');
+      if (!titleEl) return;
+      const serviceName = titleEl.textContent.trim();
+      // Prüfen ob diese Leistung in der Auswahl existiert
+      const exists = !!serviceOptions.querySelector('[data-service="' + serviceName.replace(/"/g,'\\"') + '"]');
+      if (!exists) return;
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => openBooking(serviceName));
     });
 
     // Optional global verfügbar machen
