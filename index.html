@@ -1532,7 +1532,7 @@
       <li><a href="#angebot">Angebot</a></li>
       <li><a href="#profil">Profil</a></li>
       <li><a href="#aktuell">Aktuell</a></li>
-      <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+      <li><a href="#kontakt" class="nav-cta">Termin vereinbaren</a></li>
     </ul>
     <button class="menu-toggle" aria-label="Menü">☰</button>
   </div>
@@ -2217,7 +2217,7 @@
     });
 
     // Buttons mit href="#kontakt" zum Termin vereinbaren auf das Modal umleiten
-    document.querySelectorAll('a[href="#kontakt"].btn-primary').forEach(a => {
+    document.querySelectorAll('a[href="#kontakt"].btn-primary, a[href="#kontakt"].nav-cta').forEach(a => {
       a.addEventListener('click', (e) => {
         e.preventDefault();
         // Wenn ein Service-Card-Button explizit data-service trägt, diesen nutzen,
