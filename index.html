@@ -1034,6 +1034,363 @@
   @media (max-width: 600px) {
     .ts-label { display: none; }
   }
+
+  /* ---------- BOOKING MODAL ---------- */
+  .booking-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 36, 32, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .booking-overlay.open {
+    display: flex;
+    opacity: 1;
+  }
+  .booking-modal {
+    background: var(--cream);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 880px;
+    max-height: 92vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    position: relative;
+    transform: scale(0.96);
+    transition: transform 0.3s ease;
+  }
+  .booking-overlay.open .booking-modal {
+    transform: scale(1);
+  }
+  .booking-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--cream-deep);
+    color: var(--warm-brown);
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.2s ease;
+  }
+  .booking-close:hover {
+    background: var(--sand);
+  }
+  .booking-left {
+    padding: 40px 36px;
+    overflow-y: auto;
+    border-right: 1px solid var(--cream-deep);
+  }
+  .booking-right {
+    padding: 40px 36px;
+    background: #fff;
+    overflow-y: auto;
+  }
+  .booking-left h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    color: var(--warm-brown);
+    margin: 0 0 6px;
+  }
+  .booking-left .booking-sub {
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 0 0 22px;
+    line-height: 1.5;
+  }
+  .booking-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--cream-deep);
+  }
+  .booking-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.92rem;
+    color: var(--soft-brown);
+  }
+  .booking-meta-item .ic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--cream-deep);
+    color: var(--terracotta);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .cal-title {
+    font-weight: 600;
+    color: var(--warm-brown);
+    font-size: 1.05rem;
+  }
+  .cal-nav {
+    display: flex;
+    gap: 6px;
+  }
+  .cal-nav button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: var(--cream-deep);
+    color: var(--warm-brown);
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.2s ease;
+  }
+  .cal-nav button:hover:not(:disabled) {
+    background: var(--sand);
+  }
+  .cal-nav button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .cal-weekdays span {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 0;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-day {
+    aspect-ratio: 1 / 1;
+    border: none;
+    background: transparent;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+    font-family: inherit;
+  }
+  .cal-day:hover:not(:disabled) {
+    background: var(--cream-deep);
+  }
+  .cal-day.is-empty {
+    visibility: hidden;
+  }
+  .cal-day.is-disabled {
+    color: var(--sand);
+    cursor: not-allowed;
+    text-decoration: line-through;
+    text-decoration-color: var(--sand);
+  }
+  .cal-day.is-today {
+    font-weight: 700;
+    color: var(--terracotta);
+  }
+  .cal-day.is-selected {
+    background: var(--terracotta) !important;
+    color: #fff !important;
+  }
+  .cal-day.has-slots::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--sage-deep);
+  }
+  .cal-day.is-selected.has-slots::after {
+    background: #fff;
+  }
+  .booking-right h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    color: var(--warm-brown);
+    margin: 0 0 4px;
+  }
+  .booking-right .selected-day {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0 0 22px;
+  }
+  .slot-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .slot-btn {
+    padding: 12px 10px;
+    border: 1.5px solid var(--cream-deep);
+    background: #fff;
+    color: var(--warm-brown);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .slot-btn:hover {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+  }
+  .slot-btn.is-selected {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: #fff;
+  }
+  .slot-empty {
+    color: var(--muted);
+    font-size: 0.92rem;
+    padding: 20px;
+    text-align: center;
+    background: var(--cream);
+    border-radius: 14px;
+    line-height: 1.5;
+  }
+  .booking-form {
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px solid var(--cream-deep);
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .booking-form.visible {
+    display: flex;
+  }
+  .booking-form label {
+    font-size: 0.82rem;
+    color: var(--soft-brown);
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .booking-form input,
+  .booking-form textarea {
+    padding: 11px 14px;
+    border: 1.5px solid var(--cream-deep);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: #fff;
+    transition: border-color 0.18s ease;
+  }
+  .booking-form input:focus,
+  .booking-form textarea:focus {
+    outline: none;
+    border-color: var(--terracotta);
+  }
+  .booking-form textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+  .booking-submit {
+    margin-top: 6px;
+    padding: 13px 20px;
+    background: var(--terracotta);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.98rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .booking-submit:hover {
+    background: var(--terracotta-dark);
+  }
+  .booking-success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 10px;
+  }
+  .booking-success.visible {
+    display: flex;
+  }
+  .booking-success .check {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--sage);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 18px;
+  }
+  .booking-success h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    color: var(--warm-brown);
+    margin: 0 0 8px;
+  }
+  .booking-success p {
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.6;
+  }
+  @media (max-width: 760px) {
+    .booking-modal {
+      grid-template-columns: 1fr;
+      max-height: 96vh;
+    }
+    .booking-left {
+      border-right: none;
+      border-bottom: 1px solid var(--cream-deep);
+      padding: 32px 24px 24px;
+    }
+    .booking-right {
+      padding: 24px 24px 32px;
+    }
+    .booking-overlay {
+      padding: 12px;
+    }
+  }
 </style>
 
 
@@ -1368,6 +1725,66 @@
   </div>
 </footer>
 
+<!-- BOOKING MODAL -->
+<div class="booking-overlay" id="bookingOverlay" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+  <div class="booking-modal">
+    <button class="booking-close" id="bookingClose" aria-label="Schließen">✕</button>
+
+    <div class="booking-left">
+      <h3 id="bookingTitle">Termin vereinbaren</h3>
+      <p class="booking-sub">Wählen Sie einen passenden Tag und ein freies Zeitfenster. Ein erstes Kennenlernen ist unverbindlich und kostenlos.</p>
+
+      <div class="cal-header">
+        <span class="cal-title" id="calTitle">Monat</span>
+        <div class="cal-nav">
+          <button type="button" id="calPrev" aria-label="Vorheriger Monat">‹</button>
+          <button type="button" id="calNext" aria-label="Nächster Monat">›</button>
+        </div>
+      </div>
+      <div class="cal-weekdays">
+        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+
+      <div class="booking-meta">
+        <div class="booking-meta-item"><span class="ic">⏱</span><span>Dauer: ca. 60 Minuten</span></div>
+        <div class="booking-meta-item"><span class="ic">⌂</span><span>Vor Ort in Solothurn oder online</span></div>
+        <div class="booking-meta-item"><span class="ic">☎</span><span>Lieber direkt anrufen? +41 76 535 82 78</span></div>
+      </div>
+    </div>
+
+    <div class="booking-right">
+      <div id="bookingPicker">
+        <h4 id="slotHeader">Verfügbare Zeiten</h4>
+        <p class="selected-day" id="selectedDayLabel">Bitte wählen Sie zuerst einen Tag.</p>
+        <div class="slot-list" id="slotList"></div>
+
+        <form class="booking-form" id="bookingForm" novalidate>
+          <label>Name
+            <input type="text" name="name" id="bf-name" required autocomplete="name" />
+          </label>
+          <label>E-Mail
+            <input type="email" name="email" id="bf-email" required autocomplete="email" />
+          </label>
+          <label>Telefon (optional)
+            <input type="tel" name="phone" id="bf-phone" autocomplete="tel" />
+          </label>
+          <label>Anliegen (optional)
+            <textarea name="message" id="bf-message" rows="3"></textarea>
+          </label>
+          <button type="submit" class="booking-submit">Termin anfragen</button>
+        </form>
+      </div>
+
+      <div class="booking-success" id="bookingSuccess">
+        <div class="check">✓</div>
+        <h4>Vielen Dank!</h4>
+        <p id="bookingSuccessText">Ihre Anfrage ist auf dem Weg. Ich melde mich persönlich bei Ihnen zur Bestätigung.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   // Theme switcher
   function setTheme(name) {
@@ -1399,6 +1816,222 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ---------- BOOKING MODAL ----------
+  (function() {
+    const overlay = document.getElementById('bookingOverlay');
+    const closeBtn = document.getElementById('bookingClose');
+    const calTitle = document.getElementById('calTitle');
+    const calGrid = document.getElementById('calGrid');
+    const prevBtn = document.getElementById('calPrev');
+    const nextBtn = document.getElementById('calNext');
+    const slotList = document.getElementById('slotList');
+    const selectedDayLabel = document.getElementById('selectedDayLabel');
+    const bookingForm = document.getElementById('bookingForm');
+    const bookingPicker = document.getElementById('bookingPicker');
+    const bookingSuccess = document.getElementById('bookingSuccess');
+    const successText = document.getElementById('bookingSuccessText');
+
+    const MONTHS = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    const WEEKDAYS = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+
+    // Verfügbarkeiten in Minuten ab Mitternacht. Slots à 60 Min.
+    // Mo-Mi: 08:30–17:30, Do: 08:30–19:00, Fr: 08:30–16:00, Sa/So: keine
+    const AVAILABILITY = {
+      1: { start: 510, end: 1050 },
+      2: { start: 510, end: 1050 },
+      3: { start: 510, end: 1050 },
+      4: { start: 510, end: 1140 },
+      5: { start: 510, end: 960  }
+    };
+    const SLOT_MINUTES = 60;
+
+    let viewDate = new Date();
+    viewDate.setDate(1);
+    let selectedDate = null;
+    let selectedSlot = null;
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function fmtTime(min){ return pad(Math.floor(min/60)) + ':' + pad(min%60); }
+    function sameDay(a,b){ return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate(); }
+    function startOfDay(d){ const x=new Date(d); x.setHours(0,0,0,0); return x; }
+
+    function slotsForDate(date) {
+      const day = date.getDay();
+      const conf = AVAILABILITY[day];
+      if (!conf) return [];
+      const slots = [];
+      for (let t = conf.start; t + SLOT_MINUTES <= conf.end; t += SLOT_MINUTES) {
+        slots.push(t);
+      }
+      // Vergangene Slots am heutigen Tag herausfiltern
+      const now = new Date();
+      if (sameDay(date, now)) {
+        const nowMin = now.getHours()*60 + now.getMinutes();
+        return slots.filter(s => s > nowMin + 30);
+      }
+      return slots;
+    }
+
+    function renderCalendar() {
+      const year = viewDate.getFullYear();
+      const month = viewDate.getMonth();
+      calTitle.textContent = MONTHS[month] + ' ' + year;
+
+      const firstDay = new Date(year, month, 1);
+      // Montag = 0, Sonntag = 6
+      const offset = (firstDay.getDay() + 6) % 7;
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const today = startOfDay(new Date());
+
+      const cells = [];
+      for (let i = 0; i < offset; i++) {
+        cells.push('<button type="button" class="cal-day is-empty" tabindex="-1"></button>');
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        const date = new Date(year, month, d);
+        const isPast = date < today;
+        const slots = slotsForDate(date);
+        const disabled = isPast || slots.length === 0;
+        const classes = ['cal-day'];
+        if (sameDay(date, new Date())) classes.push('is-today');
+        if (disabled) classes.push('is-disabled');
+        else if (slots.length) classes.push('has-slots');
+        if (selectedDate && sameDay(date, selectedDate)) classes.push('is-selected');
+        cells.push(
+          '<button type="button" class="' + classes.join(' ') + '" data-date="' + year + '-' + pad(month+1) + '-' + pad(d) + '"' +
+          (disabled ? ' disabled' : '') + '>' + d + '</button>'
+        );
+      }
+      calGrid.innerHTML = cells.join('');
+
+      // Vorwärts/Rückwärts begrenzen: nicht vor diesem Monat
+      const thisMonth = new Date();
+      thisMonth.setDate(1); thisMonth.setHours(0,0,0,0);
+      prevBtn.disabled = (year === thisMonth.getFullYear() && month === thisMonth.getMonth());
+    }
+
+    function renderSlots() {
+      slotList.innerHTML = '';
+      bookingForm.classList.remove('visible');
+      if (!selectedDate) {
+        selectedDayLabel.textContent = 'Bitte wählen Sie zuerst einen Tag.';
+        return;
+      }
+      const wd = WEEKDAYS[selectedDate.getDay()];
+      selectedDayLabel.textContent = wd + ', ' + selectedDate.getDate() + '. ' + MONTHS[selectedDate.getMonth()] + ' ' + selectedDate.getFullYear();
+      const slots = slotsForDate(selectedDate);
+      if (!slots.length) {
+        slotList.innerHTML = '<div class="slot-empty" style="grid-column:1/-1;">An diesem Tag sind keine freien Zeiten verfügbar.<br/>Gerne auf Anfrage per E-Mail oder Telefon.</div>';
+        return;
+      }
+      slots.forEach(min => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'slot-btn';
+        btn.dataset.slot = String(min);
+        btn.textContent = fmtTime(min) + ' – ' + fmtTime(min + SLOT_MINUTES);
+        if (selectedSlot === min) btn.classList.add('is-selected');
+        btn.addEventListener('click', () => {
+          selectedSlot = min;
+          slotList.querySelectorAll('.slot-btn').forEach(b => b.classList.toggle('is-selected', Number(b.dataset.slot) === min));
+          bookingForm.classList.add('visible');
+        });
+        slotList.appendChild(btn);
+      });
+    }
+
+    calGrid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cal-day');
+      if (!btn || btn.disabled || btn.classList.contains('is-empty')) return;
+      const [y,m,d] = btn.dataset.date.split('-').map(Number);
+      selectedDate = new Date(y, m-1, d);
+      selectedSlot = null;
+      renderCalendar();
+      renderSlots();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1);
+      renderCalendar();
+    });
+    nextBtn.addEventListener('click', () => {
+      viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1);
+      renderCalendar();
+    });
+
+    function openBooking() {
+      // Reset
+      bookingPicker.style.display = '';
+      bookingSuccess.classList.remove('visible');
+      bookingForm.classList.remove('visible');
+      bookingForm.reset();
+      selectedDate = null;
+      selectedSlot = null;
+      viewDate = new Date(); viewDate.setDate(1);
+      renderCalendar();
+      renderSlots();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeBooking() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeBooking);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeBooking(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeBooking(); });
+
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!selectedDate || selectedSlot == null) return;
+      const name = document.getElementById('bf-name').value.trim();
+      const email = document.getElementById('bf-email').value.trim();
+      const phone = document.getElementById('bf-phone').value.trim();
+      const message = document.getElementById('bf-message').value.trim();
+      if (!name || !email) return;
+
+      const wd = WEEKDAYS[selectedDate.getDay()];
+      const dateStr = wd + ', ' + pad(selectedDate.getDate()) + '.' + pad(selectedDate.getMonth()+1) + '.' + selectedDate.getFullYear();
+      const timeStr = fmtTime(selectedSlot) + ' – ' + fmtTime(selectedSlot + SLOT_MINUTES);
+
+      const subject = 'Terminanfrage: ' + dateStr + ' ' + timeStr;
+      const body =
+        'Guten Tag Frau Campomori,\n\n' +
+        'ich möchte gerne folgenden Termin anfragen:\n\n' +
+        'Datum: ' + dateStr + '\n' +
+        'Zeit:  ' + timeStr + '\n\n' +
+        'Name:    ' + name + '\n' +
+        'E-Mail:  ' + email + '\n' +
+        (phone ? 'Telefon: ' + phone + '\n' : '') +
+        (message ? '\nAnliegen:\n' + message + '\n' : '') +
+        '\nFreundliche Grüsse\n' + name;
+
+      const mailto = 'mailto:klarheit@claudia-campomori.ch'
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent(body);
+
+      // E-Mail-Programm öffnen
+      window.location.href = mailto;
+
+      // Erfolgsansicht zeigen
+      successText.innerHTML = 'Ihre Terminanfrage für <strong>' + dateStr + '</strong> um <strong>' + timeStr + '</strong> wird vorbereitet. Bitte senden Sie die E-Mail in Ihrem Mail-Programm ab — ich melde mich persönlich zur Bestätigung.';
+      bookingPicker.style.display = 'none';
+      bookingSuccess.classList.add('visible');
+    });
+
+    // Buttons mit href="#kontakt" zum Termin vereinbaren auf das Modal umleiten
+    document.querySelectorAll('a[href="#kontakt"].btn-primary').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        openBooking();
+      });
+    });
+
+    // Optional global verfügbar machen
+    window.openBookingModal = openBooking;
+  })();
 
   // Mobile menu (simple toggle)
   document.querySelector('.menu-toggle')?.addEventListener('click', () => {
