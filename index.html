@@ -1059,11 +1059,11 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
     width: 100%;
-    max-width: 880px;
+    max-width: 940px;
     max-height: 92vh;
     overflow: hidden;
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1.15fr 1fr;
     position: relative;
     transform: scale(0.96);
     transition: transform 0.3s ease;
@@ -1093,12 +1093,12 @@
     background: var(--sand);
   }
   .booking-left {
-    padding: 40px 36px;
+    padding: 32px 28px;
     overflow-y: auto;
     border-right: 1px solid var(--cream-deep);
   }
   .booking-right {
-    padding: 40px 36px;
+    padding: 32px 28px;
     background: #fff;
     overflow-y: auto;
   }
@@ -1141,6 +1141,12 @@
     font-size: 1rem;
     flex-shrink: 0;
   }
+  .cal-wrap {
+    background: #fff;
+    border-radius: 18px;
+    padding: 18px 16px 14px;
+    box-shadow: 0 2px 12px rgba(74, 55, 41, 0.04);
+  }
   .cal-header {
     display: flex;
     align-items: center;
@@ -1148,88 +1154,104 @@
     margin-bottom: 14px;
   }
   .cal-title {
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
     color: var(--warm-brown);
-    font-size: 1.05rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.01em;
   }
   .cal-nav {
     display: flex;
     gap: 6px;
   }
   .cal-nav button {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border: none;
     border-radius: 50%;
-    background: var(--cream-deep);
+    background: var(--cream);
     color: var(--warm-brown);
     cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.2s ease;
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: background 0.2s ease, color 0.2s ease;
   }
   .cal-nav button:hover:not(:disabled) {
-    background: var(--sand);
+    background: var(--terracotta);
+    color: #fff;
   }
   .cal-nav button:disabled {
-    opacity: 0.35;
+    opacity: 0.3;
     cursor: not-allowed;
   }
   .cal-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    margin-bottom: 8px;
+    gap: 2px;
+    margin-bottom: 6px;
+    padding: 0 2px;
   }
   .cal-weekdays span {
     text-align: center;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--muted);
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 6px 0;
+    padding: 6px 0 8px;
   }
   .cal-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
+    gap: 2px;
   }
   .cal-day {
     aspect-ratio: 1 / 1;
+    min-height: 38px;
     border: none;
     background: transparent;
-    border-radius: 12px;
-    font-size: 0.92rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
     color: var(--ink);
     cursor: pointer;
     transition: all 0.18s ease;
     position: relative;
     font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .cal-day:hover:not(:disabled) {
-    background: var(--cream-deep);
+  .cal-day:hover:not(:disabled):not(.is-empty) {
+    background: var(--cream);
+    color: var(--terracotta);
   }
   .cal-day.is-empty {
     visibility: hidden;
   }
   .cal-day.is-disabled {
-    color: var(--sand);
+    color: #c9bfaf;
     cursor: not-allowed;
-    text-decoration: line-through;
-    text-decoration-color: var(--sand);
+    font-weight: 400;
+  }
+  .cal-day.is-disabled:hover {
+    background: transparent;
+    color: #c9bfaf;
   }
   .cal-day.is-today {
-    font-weight: 700;
+    box-shadow: inset 0 0 0 1.5px var(--terracotta);
     color: var(--terracotta);
+    font-weight: 700;
   }
   .cal-day.is-selected {
     background: var(--terracotta) !important;
     color: #fff !important;
+    box-shadow: 0 4px 12px rgba(201, 123, 94, 0.35);
   }
   .cal-day.has-slots::after {
     content: '';
     position: absolute;
-    bottom: 6px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
     width: 4px;
@@ -1239,6 +1261,34 @@
   }
   .cal-day.is-selected.has-slots::after {
     background: #fff;
+  }
+  .cal-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--cream-deep);
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+  .cal-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .cal-legend .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage-deep);
+  }
+  .cal-legend .ring {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px var(--terracotta);
   }
   .booking-right h4 {
     font-family: 'Cormorant Garamond', serif;
@@ -1374,37 +1424,39 @@
     margin: 0;
     line-height: 1.6;
   }
-  /* Service-Auswahl im Buchungs-Modal */
+  /* Service-Auswahl im Buchungs-Modal - kompakt als Chips */
   .service-picker {
-    margin: 0 0 22px;
+    margin: 0 0 18px;
   }
   .service-picker-label {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 600;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .service-options {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
   }
   .service-option {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 11px 14px;
+    gap: 6px;
+    padding: 6px 12px 6px 8px;
     border: 1.5px solid var(--cream-deep);
     background: #fff;
-    border-radius: 14px;
+    border-radius: 999px;
     cursor: pointer;
     transition: all 0.18s ease;
     text-align: left;
     font-family: inherit;
-    color: var(--ink);
+    color: var(--warm-brown);
+    font-size: 0.82rem;
+    line-height: 1.2;
   }
   .service-option:hover {
     border-color: var(--sand);
@@ -1412,39 +1464,42 @@
   }
   .service-option.is-selected {
     border-color: var(--terracotta);
-    background: var(--cream-deep);
-  }
-  .service-option .so-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--cream-deep);
-    color: var(--terracotta);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-    flex-shrink: 0;
-  }
-  .service-option.is-selected .so-icon {
     background: var(--terracotta);
     color: #fff;
   }
+  .service-option .so-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--cream-deep);
+    color: var(--terracotta);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+  .service-option.is-selected .so-icon {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+  }
   .service-option .so-text {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    line-height: 1.25;
-    min-width: 0;
+    display: inline;
   }
   .service-option .so-name {
-    font-size: 0.92rem;
     font-weight: 500;
-    color: var(--warm-brown);
+    white-space: nowrap;
   }
+  /* Hint nur noch im Slot-Header sichtbar, in Chips ausblenden */
   .service-option .so-hint {
-    font-size: 0.76rem;
+    display: none;
+  }
+  /* Hint unter dem Slot-Header anzeigen */
+  .booking-right .slot-hint {
+    font-size: 0.78rem;
     color: var(--muted);
+    margin: -2px 0 14px;
+    font-style: italic;
   }
   @media (max-width: 760px) {
     .booking-modal {
@@ -1854,17 +1909,23 @@
         </div>
       </div>
 
-      <div class="cal-header">
-        <span class="cal-title" id="calTitle">Monat</span>
-        <div class="cal-nav">
-          <button type="button" id="calPrev" aria-label="Vorheriger Monat">‹</button>
-          <button type="button" id="calNext" aria-label="Nächster Monat">›</button>
+      <div class="cal-wrap">
+        <div class="cal-header">
+          <span class="cal-title" id="calTitle">Monat</span>
+          <div class="cal-nav">
+            <button type="button" id="calPrev" aria-label="Vorheriger Monat">‹</button>
+            <button type="button" id="calNext" aria-label="Nächster Monat">›</button>
+          </div>
+        </div>
+        <div class="cal-weekdays">
+          <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="cal-legend">
+          <span><span class="dot"></span>Verfügbar</span>
+          <span><span class="ring"></span>Heute</span>
         </div>
       </div>
-      <div class="cal-weekdays">
-        <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span><span>Sa</span><span>So</span>
-      </div>
-      <div class="cal-grid" id="calGrid"></div>
 
       <div class="booking-meta">
         <div class="booking-meta-item"><span class="ic">⏱</span><span>Dauer: ca. 60 Minuten</span></div>
